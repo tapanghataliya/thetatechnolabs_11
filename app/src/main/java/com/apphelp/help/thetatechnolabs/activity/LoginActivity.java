@@ -1,5 +1,6 @@
 package com.apphelp.help.thetatechnolabs.activity;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
@@ -47,6 +48,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.lyl_sign_in:
+
+                Intent i_data = new Intent(LoginActivity.this,HomeActivity.class);
+                startActivity(i_data);
                 break;
         }
     }
