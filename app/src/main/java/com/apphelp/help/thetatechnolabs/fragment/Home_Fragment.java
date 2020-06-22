@@ -16,6 +16,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
@@ -56,6 +57,8 @@ public class Home_Fragment extends Fragment {
     ArrayList<Bean.UserData> model_modelArrayList = new ArrayList<>();
     UserData_Adapater userData_adapater;
 
+    SwipeRefreshLayout swipeToRefresh;
+
     public Home_Fragment() {
         // Required empty public constructor
     }
@@ -64,7 +67,6 @@ public class Home_Fragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -84,6 +86,9 @@ public class Home_Fragment extends Fragment {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         rc_userdata.setLayoutManager(linearLayoutManager);
 
+        swipeToRefresh = (SwipeRefreshLayout) rootView.findViewById(R.id.swipeToRefresh);
+        swipeToRefresh.setColorSchemeResources(R.color.colorApp);
+
         try {
 
             getUserData();
@@ -93,11 +98,27 @@ public class Home_Fragment extends Fragment {
             e.printStackTrace();
         }
 
+
+        swipeToRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                try {
+
+                    getUserData();
+
+                } catch (Exception e) {
+
+                    e.printStackTrace();
+                }
+            }
+        });
+
         return rootView;
     }
 
     private void getUserData() {
         progressDoalog.show();
+        swipeToRefresh.setRefreshing(false);
         JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.GET,
                 Global.BASE_URL + "users?page=1", new com.android.volley.Response.Listener<JSONObject>() {
 
@@ -157,6 +178,7 @@ public class Home_Fragment extends Fragment {
             public void onErrorResponse(VolleyError error) {
                 // TODO Auto-generated method stub
                 progressDoalog.dismiss();
+//                swipeToRefresh.setRefreshing(false);
                 NetworkResponse networkResponse = error.networkResponse;
                 if (networkResponse != null && networkResponse.statusCode == 404) {
                     Toast.makeText(getContext(), "No Record Found.", Toast.LENGTH_SHORT).show();

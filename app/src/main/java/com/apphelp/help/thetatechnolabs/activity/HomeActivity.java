@@ -1,10 +1,20 @@
 package com.apphelp.help.thetatechnolabs.activity;
 
+import android.app.AlertDialog;
 import android.app.FragmentManager;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.webkit.CookieManager;
+import android.webkit.CookieSyncManager;
+import android.widget.RatingBar;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -18,6 +28,7 @@ import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import com.apphelp.help.thetatechnolabs.R;
+import com.apphelp.help.thetatechnolabs.controller.Global;
 import com.apphelp.help.thetatechnolabs.fragment.Home_Fragment;
 import com.apphelp.help.thetatechnolabs.fragment.Map_Fragment;
 import com.apphelp.help.thetatechnolabs.fragment.Profile_Fragment;
@@ -32,15 +43,21 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     private TabLayout tabLayout;
     private ViewPager viewPager;
     DrawerLayout drawer;
+    TextView txt_email;
+    SharedPreferences sharedPreferences;
+    String EMAIL_ID;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
+        sharedPreferences = getSharedPreferences(Global.THETA_TECHNOLABS, MODE_PRIVATE);
+        EMAIL_ID = sharedPreferences.getString(Global.L_EMAIL, "");
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("ThetaTechnolabs");
+        getSupportActionBar().setTitle("Theta Technolabs");
         toolbar.setTitleTextColor(Color.WHITE);
 
         viewPager = (ViewPager) findViewById(R.id.Home_Page_View);
@@ -50,6 +67,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         tabLayout.setupWithViewPager(viewPager);
 
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
@@ -57,7 +75,10 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        View header = navigationView.getHeaderView(0);
+        txt_email = (TextView) header.findViewById(R.id.txt_email);
         navigationView.setNavigationItemSelectedListener(this);
+        txt_email.setText(EMAIL_ID);
     }
 
     @Override
@@ -69,9 +90,41 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
         } else if (id == R.id.nav_share) {
 
-        } else if (id == R.id.nav_RLogout){
+            Intent emailIntent = new Intent(android.content.Intent.ACTION_SEND);
+            emailIntent.putExtra(android.content.Intent.EXTRA_TEXT, Global.PLAY_STORE);
+            emailIntent.setType("text/plain");
+            startActivity(Intent.createChooser(emailIntent, "Share Via..."));
 
-        } else if (id == R.id.nav_rate){
+        } else if (id == R.id.nav_RLogout) {
+
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.remove(Global.THETA_TECHNOLABS);
+            editor.remove(Global.L_EMAIL);
+            editor.remove(Global.L_PASSWORD);
+            editor.apply();
+            editor.clear();
+            editor.commit();
+            CookieSyncManager.createInstance(HomeActivity.this);
+            CookieManager cookieManager = CookieManager.getInstance();
+            cookieManager.removeSessionCookie();
+
+            Intent intent = new Intent(HomeActivity.this, LoginActivity.class);
+            startActivity(intent);
+            intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+            HomeActivity.this.finish();
+
+
+        } else if (id == R.id.nav_rate) {
+
+            final String appPackageName = getPackageName();
+            try {
+
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + appPackageName)));
+
+            } catch (android.content.ActivityNotFoundException anfe) {
+
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + appPackageName)));
+            }
 
         }
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

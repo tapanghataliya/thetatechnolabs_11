@@ -10,13 +10,18 @@ public class Global {
     public static final String BASE_URL = "https://reqres.in/api/";
 
     public static final String CURRENT_USER_LOGIN = "user_login";
-    public static final String HELPMATE = "HELPMATE";
+    public static final String THETA_TECHNOLABS = "theta_technolabs";
     public static final String ID = "id";
     public static final String TOKEN = "token";
     public static final String USER_NAME = "user_name";
-    public static final String EMAIL = "email";
     public static final String MOBILE = "mobile";
     public static final String ADDRESS = "address";
+
+    public static final String L_EMAIL = "email";
+    public static final String L_PASSWORD = "password";
+
+    public static final String EMAIL = "test@gmail.com";
+    public static final String PASSWORD = "test123";
     public static String DeviceID;
 
     public static String getDeviceID(Context context) {
