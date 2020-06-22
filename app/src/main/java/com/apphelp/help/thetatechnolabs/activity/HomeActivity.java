@@ -67,9 +67,11 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
         if (id == R.id.nav_RProfile) {
 
-        } else if (id == R.id.nav_Alert) {
+        } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_RLogout){
+
+        } else if (id == R.id.nav_rate){
 
         }
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

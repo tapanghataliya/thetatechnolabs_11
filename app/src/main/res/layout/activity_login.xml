@@ -18,26 +18,17 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/margn_30"
-                android:layout_marginTop="@dimen/margn_30"
-                android:gravity="center|start"
+                android:layout_marginRight="@dimen/margn_30"
+                android:layout_marginTop="@dimen/margn_60"
+                android:gravity="center"
                 android:orientation="vertical">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="@dimen/margn_5"
-                    android:text="welcome Back"
-                    android:textColor="@color/colorApp"
-                    android:textSize="@dimen/txt_size20"
-                    android:textStyle="bold" />
 
-                <TextView
+                <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:padding="@dimen/margn_5"
-                    android:text="Sign in to continue"
-                    android:textColor="@color/colorApp"
-                    android:textSize="@dimen/txt_size12" />
+                    android:src="@drawable/theta_logo"
+                    android:layout_gravity="center"/>
 
             </LinearLayout>
 
