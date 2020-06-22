@@ -1,8 +1,7 @@
-package com.apphelp.help.thetatechnolabs;
+package com.apphelp.help.thetatechnolabs.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
@@ -11,7 +10,7 @@ import android.os.Handler;
 import android.view.Window;
 import android.view.WindowManager;
 
-import com.apphelp.help.thetatechnolabs.activity.LoginActivity;
+import com.apphelp.help.thetatechnolabs.R;
 
 public class MainActivity extends AppCompatActivity {
 
