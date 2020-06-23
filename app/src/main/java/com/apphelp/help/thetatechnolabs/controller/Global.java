@@ -16,6 +16,7 @@ public class Global {
     public static final String USER_NAME = "user_name";
     public static final String MOBILE = "mobile";
     public static final String ADDRESS = "address";
+    public static final String USER_PROFILE = "user_profile";
 
     public static final String L_EMAIL = "email";
     public static final String L_PASSWORD = "password";

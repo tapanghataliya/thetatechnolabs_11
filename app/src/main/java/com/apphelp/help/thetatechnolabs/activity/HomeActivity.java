@@ -43,9 +43,9 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     private TabLayout tabLayout;
     private ViewPager viewPager;
     DrawerLayout drawer;
-    TextView txt_email;
+    TextView txt_email, txt_username,txt_mobile;
     SharedPreferences sharedPreferences;
-    String EMAIL_ID;
+    String EMAIL_ID, USER_NAME, MOBILE_NO;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -54,6 +54,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
         sharedPreferences = getSharedPreferences(Global.THETA_TECHNOLABS, MODE_PRIVATE);
         EMAIL_ID = sharedPreferences.getString(Global.L_EMAIL, "");
+        USER_NAME = sharedPreferences.getString(Global.USER_NAME,"");
+        MOBILE_NO = sharedPreferences.getString(Global.MOBILE,"");
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -76,9 +78,40 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         View header = navigationView.getHeaderView(0);
+        txt_username = (TextView) header.findViewById(R.id.txt_username);
+        txt_mobile = (TextView) header.findViewById(R.id.txt_mobile);
         txt_email = (TextView) header.findViewById(R.id.txt_email);
         navigationView.setNavigationItemSelectedListener(this);
-        txt_email.setText(EMAIL_ID);
+
+        if (USER_NAME.equalsIgnoreCase("") || USER_NAME.equalsIgnoreCase("null") || USER_NAME.equalsIgnoreCase(null)) {
+
+            txt_username.setVisibility(View.GONE);
+
+        } else {
+
+            txt_username.setVisibility(View.VISIBLE);
+            txt_username.setText(USER_NAME);
+        }
+
+        if (EMAIL_ID.equalsIgnoreCase("") || EMAIL_ID.equalsIgnoreCase("null") || EMAIL_ID.equalsIgnoreCase(null)) {
+
+            txt_email.setVisibility(View.GONE);
+
+        } else {
+
+            txt_email.setVisibility(View.VISIBLE);
+            txt_email.setText(EMAIL_ID);
+        }
+
+        if (MOBILE_NO.equalsIgnoreCase("") || MOBILE_NO.equalsIgnoreCase("null") || MOBILE_NO.equalsIgnoreCase(null)) {
+
+            txt_mobile.setVisibility(View.GONE);
+
+        } else {
+
+            txt_mobile.setVisibility(View.VISIBLE);
+            txt_mobile.setText(MOBILE_NO);
+        }
     }
 
     @Override

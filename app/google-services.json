@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "565343907241",
+    "firebase_url": "https://thetatechnolabs.firebaseio.com",
+    "project_id": "thetatechnolabs",
+    "storage_bucket": "thetatechnolabs.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:565343907241:android:03af31112ac38e4c3928b8",
+        "android_client_info": {
+          "package_name": "com.apphelp.help.thetatechnolabs"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "565343907241-2bk5a2k4qo321jtf21ipccdr38vqathd.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.apphelp.help.thetatechnolabs",
+            "certificate_hash": "ce7247a17debc9d567ef982c86c15396262bde3a"
+          }
+        },
+        {
+          "client_id": "565343907241-gttoo097qatbd1bt57r98hcj5dhglggj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC4zOR_ZApz94EjVPEIJou2ElGEcyywIoc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "565343907241-gttoo097qatbd1bt57r98hcj5dhglggj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
