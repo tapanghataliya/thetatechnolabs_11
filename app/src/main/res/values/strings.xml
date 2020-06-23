@@ -3,4 +3,8 @@
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="google_map_api_key" templateMergeStrategy="preserve"
+        translatable="false">AIzaSyA6a-7-R22d170vek_aAJ7GwUABY_Q4RYE</string>
+    <string name="open_map"><u>Open in Map</u></string>
 </resources>
