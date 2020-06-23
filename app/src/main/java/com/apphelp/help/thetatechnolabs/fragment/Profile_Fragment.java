@@ -1,8 +1,15 @@
 package com.apphelp.help.thetatechnolabs.fragment;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.ActivityNotFoundException;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,14 +17,17 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.apphelp.help.thetatechnolabs.R;
 import com.apphelp.help.thetatechnolabs.controller.Global;
 import com.google.android.material.textfield.TextInputEditText;
+import com.squareup.picasso.Picasso;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
+import static android.app.Activity.RESULT_OK;
 import static android.content.Context.MODE_PRIVATE;
 
 public class Profile_Fragment extends Fragment implements View.OnClickListener {
@@ -25,12 +35,15 @@ public class Profile_Fragment extends Fragment implements View.OnClickListener {
     CircleImageView img_profile;
     TextInputEditText usernameTextInputEditText,emailTextInputEditText, mobileTextInputEditText, addressTextInputEditText;
     Button btn_update;
-    String USER_NAME, EMAIL_ID, MOBILE_NO, ADDRESS;
+    String USER_NAME, EMAIL_ID, MOBILE_NO, ADDRESS, IMAGE_PROFILE;
     String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
 
     ProgressDialog progressDoalog;
 
     SharedPreferences sharedPreferences;
+    private static final int PICK_IMAGE = 100;
+    Uri imageUri;
+
 
     public Profile_Fragment() {
         // Required empty public constructor
@@ -53,6 +66,7 @@ public class Profile_Fragment extends Fragment implements View.OnClickListener {
         MOBILE_NO = sharedPreferences.getString(Global.MOBILE,"");
         EMAIL_ID = sharedPreferences.getString(Global.L_EMAIL,"");
         ADDRESS = sharedPreferences.getString(Global.ADDRESS,"");
+        IMAGE_PROFILE = sharedPreferences.getString(Global.USER_PROFILE,"");
 
         Log.d("USER_NAME", USER_NAME);
 
@@ -104,8 +118,21 @@ public class Profile_Fragment extends Fragment implements View.OnClickListener {
             addressTextInputEditText.setText(ADDRESS);
         }
 
+        if (IMAGE_PROFILE.isEmpty()){
+            Picasso.with(getContext())
+                    .load(R.drawable.user_profile)
+                    .noFade()
+                    .into(img_profile);
+        } else {
+            Picasso.with(getContext())
+                    .load(IMAGE_PROFILE)
+                    .noFade()
+                    .into(img_profile);
+        }
+
         btn_update = (Button) rootView.findViewById(R.id.btn_update);
         btn_update.setOnClickListener(this);
+        img_profile.setOnClickListener(this);
         return rootView;
     }
 
@@ -116,6 +143,12 @@ public class Profile_Fragment extends Fragment implements View.OnClickListener {
             case R.id.btn_update:
 
                 Validation();
+                break;
+
+            case R.id.img_profile:
+
+//                Intent gallery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
+//                startActivityForResult(gallery, PICK_IMAGE);
                 break;
         }
     }
@@ -160,6 +193,19 @@ public class Profile_Fragment extends Fragment implements View.OnClickListener {
             editor.putString(Global.ADDRESS, ADDRESS);
             editor.apply();
 
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK && requestCode == PICK_IMAGE){
+            imageUri = data.getData();
+            img_profile.setImageURI(imageUri);
+            Log.d("IMAGE", String.valueOf(imageUri));
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString(Global.USER_PROFILE, String.valueOf(imageUri));
+            editor.apply();
         }
     }
 }

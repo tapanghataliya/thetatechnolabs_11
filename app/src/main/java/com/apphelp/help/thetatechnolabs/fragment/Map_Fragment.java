@@ -51,6 +51,7 @@ public class Map_Fragment extends Fragment implements OnMapReadyCallback,
     Marker mCurrLocationMarker;
     GoogleApiClient mGoogleApiClient;
     LocationRequest mLocationRequest;
+    LinearLayout lyl_map;
 
     public Map_Fragment() {
 
@@ -67,6 +68,7 @@ public class Map_Fragment extends Fragment implements OnMapReadyCallback,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_map, container, false);
 
+        lyl_map = (LinearLayout) rootView.findViewById(R.id.lyl_map);
         SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 

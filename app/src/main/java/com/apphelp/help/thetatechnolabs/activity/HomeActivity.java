@@ -2,6 +2,8 @@ package com.apphelp.help.thetatechnolabs.activity;
 
 import android.app.AlertDialog;
 import android.app.FragmentManager;
+import android.app.FragmentTransaction;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -43,7 +45,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     private TabLayout tabLayout;
     private ViewPager viewPager;
     DrawerLayout drawer;
-    TextView txt_email, txt_username,txt_mobile;
+    TextView txt_email, txt_username, txt_mobile;
     SharedPreferences sharedPreferences;
     String EMAIL_ID, USER_NAME, MOBILE_NO;
 
@@ -54,8 +56,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
         sharedPreferences = getSharedPreferences(Global.THETA_TECHNOLABS, MODE_PRIVATE);
         EMAIL_ID = sharedPreferences.getString(Global.L_EMAIL, "");
-        USER_NAME = sharedPreferences.getString(Global.USER_NAME,"");
-        MOBILE_NO = sharedPreferences.getString(Global.MOBILE,"");
+        USER_NAME = sharedPreferences.getString(Global.USER_NAME, "");
+        MOBILE_NO = sharedPreferences.getString(Global.MOBILE, "");
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -119,7 +121,9 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
         int id = item.getItemId();
 
+
         if (id == R.id.nav_RProfile) {
+
 
         } else if (id == R.id.nav_share) {
 
