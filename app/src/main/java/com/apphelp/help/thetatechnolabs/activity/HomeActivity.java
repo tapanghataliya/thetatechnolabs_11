@@ -131,7 +131,6 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         } else if (id == R.id.nav_RLogout) {
 
             SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.remove(Global.THETA_TECHNOLABS);
             editor.remove(Global.L_EMAIL);
             editor.remove(Global.L_PASSWORD);
             editor.apply();
